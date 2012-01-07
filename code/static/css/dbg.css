@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.highlight_php,
+.highlight_javascript,
+.highlight_xml,
+.highlight_css {
+	background-color: #FFFAF0;
+	border: 1px solid #120A8F;
+	padding: 2px;
+	white-space: pre;
+}
+
+.hl-main {font-family: monospace; font-size:11px;}
+.hl-default { color: #000000; white-space: pre; }
+.hl-code { color: #7f7f33; white-space: pre; }
+.hl-brackets { color: #993399; white-space: pre; }
+.hl-comment { color: #FF9900; white-space: pre; }
+.hl-quotes { color: #00007F; white-space: pre; }
+.hl-string { color: #CC0000; white-space: pre; }
+.hl-identifier { color: #000000; white-space: pre; }
+.hl-reserved { color: #006600; white-space: pre; }
+.hl-inlinedoc { color: #0000FF; white-space: pre; }
+.hl-var { color: #0000CC; white-space: pre; }
+.hl-url { color: #FF0000; white-space: pre; }
+.hl-special { color: #0000FF; white-space: pre; }
+.hl-number { color: #32CD32; white-space: pre; }
+.hl-inlinetags { color: #FF0000; white-space: pre; }
