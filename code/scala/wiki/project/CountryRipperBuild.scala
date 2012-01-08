@@ -2,7 +2,7 @@ import sbt._
 import Keys._
 
 object BuildSettings {
-  val bsCountryRipper = 
+  val bsCountryRipper =
     Default.settings ++ Seq(
       name         := "CountryRipper",
       organization := "hr.element.onebyseven",
@@ -13,8 +13,11 @@ object BuildSettings {
 object ProjectDeps {
   import Dependencies._
   import Implicits._
-  
+
   val depsCountryRipper = libDeps(
+    dispatchTagsoup,
+    etbUtil,
+    templater,
     //test
     scalaTest
   )
@@ -25,7 +28,17 @@ object ProjectDeps {
 object Dependencies {
   import Implicits._
 
-  val scalaTest = "org.scalatest" %% "scalatest" % "1.6.1" % "test"
+  val dispatchTagsoup =
+    "net.databinder" %% "dispatch-tagsoup" % "0.8.7"
+
+  val etbUtil =
+    "hr.element.etb" %% "etb-util" % "0.2.3"
+    
+  val templater = 
+    "hr.ngs.templater" % "templater" % "1.3.1"
+
+  val scalaTest =
+    "org.scalatest" %% "scalatest" % "1.6.1" % "test"
 }
 
 //  ---------------------------------------------------------------------------
