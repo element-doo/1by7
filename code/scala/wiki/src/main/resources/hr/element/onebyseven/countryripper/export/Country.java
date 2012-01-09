@@ -1,17 +1,16 @@
-package org.lby7.tables;
+package hr.element.onebyseven.common;
 
-public enum Country
-{
-$(enums)
-    public final String a2, a3, n3;
-    public final String isoName, wikiName;
+public enum Country {
+  [[a2.code]]("[[a3.code]]", [[numeric3]:padLeft(3)], "[[name]]"[[padding]])[[eol]]
 
-    private Country( final String a3, final short n3, final String wikiName )
-    {
-        this.a2 = name();
-        this.a3 = a3;
-        this.n3 = String.format( "%03d", n3 );
-        this.isoName = wikiName.toUpperCase();
-        this.wikiName = wikiName;
-    }
+  public final String alpha2, alpha3, numeric3;
+  public final String isoName, wikiName;
+
+  private Country(final String alpha3, final int numeric3, final String wikiName) {
+    this.alpha2 = name();
+    this.alpha3 = alpha3;
+    this.numeric3 = String.format("%03d", numeric3);
+    this.isoName = wikiName.toUpperCase();
+    this.wikiName = wikiName;
+  }
 }

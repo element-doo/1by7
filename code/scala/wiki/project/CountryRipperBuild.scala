@@ -17,6 +17,7 @@ object ProjectDeps {
   val depsCountryRipper = libDeps(
     dispatchTagsoup,
     etbUtil,
+    scalaIo,
     templater,
     //test
     scalaTest
@@ -28,17 +29,15 @@ object ProjectDeps {
 object Dependencies {
   import Implicits._
 
-  val dispatchTagsoup =
-    "net.databinder" %% "dispatch-tagsoup" % "0.8.7"
+  val dispatchTagsoup = "net.databinder" %% "dispatch-tagsoup" % "0.8.7"
 
-  val etbUtil =
-    "hr.element.etb" %% "etb-util" % "0.2.3"
-    
-  val templater = 
-    "hr.ngs.templater" % "templater" % "1.3.1"
+  val etbUtil = "hr.element.etb" %% "etb-util" % "0.2.3"
+  val scalaIo = "com.github.scala-incubator.io" %% "scala-io-file" % "0.3.0"
 
-  val scalaTest =
-    "org.scalatest" %% "scalatest" % "1.6.1" % "test"
+  val templater = "hr.ngs.templater" %% "templater" % "1.3.2"
+   
+  //test
+  val scalaTest = "org.scalatest" %% "scalatest" % "1.6.1" % "test"
 }
 
 //  ---------------------------------------------------------------------------
