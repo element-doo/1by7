@@ -4,6 +4,8 @@ package countries
 
 import scala.concurrent.ops.future
 
+abstract class CountryStub(val name: String)
+
 trait CountryRipper {
   type T <: CountryStub
   def rip(): Seq[T]

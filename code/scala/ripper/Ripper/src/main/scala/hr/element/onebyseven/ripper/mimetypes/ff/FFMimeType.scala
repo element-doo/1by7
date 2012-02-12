@@ -4,10 +4,10 @@ package mimetypes
 package ff
 
 class FFMimeType(
-  extension: String,
-  val mimeType: String,
-  val name: String) extends MimeTypeStub(name) {
+  mimeType: String,
+  val extensions: Set[String],
+  val description: String) extends MimeTypeStub(mimeType) {
 
   override val toString =
-    "%s:[%s,%s]"format(extension, name, mimeType)
+    "%s:[%s - %s]"format(mimeType, extensions mkString ",", description)
 }
