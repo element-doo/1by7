@@ -5,11 +5,11 @@ import dmp.Config;
 
 public class EntryPoint
 {
-	public static void main( final String[] args )
-	{
-		final Config config = new Config();
-		final IsoCountries table = new IsoCountries();
-		
-		System.out.println( new IsoCountriesDumper( config, table ) );		
-	}
+  public static void main( final String[] args )
+  {
+    final Config config = new Config();
+    final IsoCountries table = new IsoCountries();
+
+    System.out.println( new IsoCountriesDumper( config, table ) );
+  }
 }

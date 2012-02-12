@@ -2,5 +2,5 @@ package export;
 
 public interface Dumpable
 {
-	public Type getType();
+  public Type getType();
 }

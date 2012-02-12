@@ -5,9 +5,9 @@ import export.Type;
 
 public class Newline implements Dumpable
 {
-	@Override
-	public Type getType()
-	{
-		return Type.NEWLINE;
-	}
+  @Override
+  public Type getType()
+  {
+    return Type.NEWLINE;
+  }
 }

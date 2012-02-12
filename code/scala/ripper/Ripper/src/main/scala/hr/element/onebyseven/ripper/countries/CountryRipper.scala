@@ -1,17 +1,22 @@
 package hr.element.onebyseven
-package countryripper
+package ripper
+package countries
 
-import scala.actors.Futures.future
-import java.io.StringWriter
+import scala.concurrent.ops.future
 
-object EntryPoint {
-  def main(args: Array[String])  = {
+trait CountryRipper {
+  type T <: CountryStub
+  def rip(): Seq[T]
+}
+
+object CountryRipper extends Ripper {
+  def rip() {
     val isoCountries = future {
-      iso.ISORipper.ripCountries()
+      iso.ISORipper.rip()
     }
 
     val wikiCountries = future {
-      wiki.WikiRipper.ripCountries()
+      wiki.WikiRipper.rip()
     }
 
     assert(

@@ -1,5 +1,6 @@
 package hr.element.onebyseven
-package countryripper
+package ripper
+package countries
 package wiki
 
 import common._
@@ -10,11 +11,13 @@ import tagsoup.TagSoupHttp._
 import hr.element.etb.Pimps._
 import scala.xml._
 
-object WikiRipper extends Ripper[WikiCountry]{
+object WikiRipper extends CountryRipper {
+  type T = WikiCountry
+
   val WikiURI =
     :/("en.wikipedia.org") / "wiki" / "ISO_3166-1"
 
-  def ripCountries() =
+  def rip() =
     Http(WikiURI </> {ns =>
       for {
         table <- ns \\ "table"

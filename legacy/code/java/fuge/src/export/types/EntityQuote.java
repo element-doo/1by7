@@ -4,26 +4,26 @@ import export.Type;
 
 public class EntityQuote extends Quote
 {
-	public EntityQuote( final boolean opening )
-	{
-		super( Quote.Style.QUOT, opening );
-	}
-	
-	@Override
-	public Type getType()
-	{
-		return Type.ENTITY_QUOTE;
-	}
+  public EntityQuote( final boolean opening )
+  {
+    super( Quote.Style.QUOT, opening );
+  }
 
-	@Override
-	public String getClosed()
-	{
-		return "\"";
-	}
+  @Override
+  public Type getType()
+  {
+    return Type.ENTITY_QUOTE;
+  }
 
-	@Override
-	public String getOpen()
-	{
-		return "\"";
-	}
+  @Override
+  public String getClosed()
+  {
+    return "\"";
+  }
+
+  @Override
+  public String getOpen()
+  {
+    return "\"";
+  }
 }

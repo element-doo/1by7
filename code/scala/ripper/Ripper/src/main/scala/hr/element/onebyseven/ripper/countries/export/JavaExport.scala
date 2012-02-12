@@ -1,5 +1,6 @@
 package hr.element.onebyseven
-package countryripper
+package ripper
+package countries
 package export
 
 import wiki.WikiCountry
@@ -9,14 +10,22 @@ import scala.collection.immutable.TreeSet
 
 import java.io._
 
+import hr.element.etb.Pimps._
+
 object JavaExport extends Export {
   def apply(countries: Traversable[WikiCountry]) {
 
     val javaTemplate =
       JavaExport.getClass.getResourceAsStream("Country.java")
 
+    val outputFile =
+      new File(
+        Ripper.root,
+        "Countries/src/main/java/hr/element/onebyseven/common/Country.java"
+      )
+
     val tD = getDF().open(javaTemplate, "utf8",
-      new FileOutputStream("R:/hr/element/onebyseven/common/Country.java"))
+      new FileOutputStream(outputFile))
 
     val maxName = countries.map(_.name.length).max
 

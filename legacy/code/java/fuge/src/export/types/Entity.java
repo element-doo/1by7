@@ -5,16 +5,16 @@ import export.Type;
 
 public class Entity implements Dumpable
 {
-	public final String entity;
-	
-	public Entity( final String entity )
-	{
-		this.entity = entity;
-	}
+  public final String entity;
 
-	@Override
-	public Type getType()
-	{
-		return Type.ENTITY;
-	}
+  public Entity( final String entity )
+  {
+    this.entity = entity;
+  }
+
+  @Override
+  public Type getType()
+  {
+    return Type.ENTITY;
+  }
 }

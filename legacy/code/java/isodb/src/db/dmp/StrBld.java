@@ -15,308 +15,308 @@ public class StrBld implements Appendable, Cloneable, Iterable<String>, Serializ
 {
 //  ################################################################################
 
-	private final Config config;
-	
-	private final ArrayDeque<String> sQ;
-	private final StringBuilder sB;
+  private final Config config;
 
-	public StrBld( final Config config )
-	{
-		this.config = config;
-		
-		sB = new StringBuilder();
-		sQ = new ArrayDeque<String>();
-	}
-	
-//  ================================================================================
+  private final ArrayDeque<String> sQ;
+  private final StringBuilder sB;
 
-	public StrBld clear()
-	{
-		sB.setLength( 0 );
-		sQ.clear();
-		return this;
-	}
+  public StrBld( final Config config )
+  {
+    this.config = config;
+
+    sB = new StringBuilder();
+    sQ = new ArrayDeque<String>();
+  }
 
 //  ================================================================================
 
-	private Pattern PNL = Pattern.compile( "\r\n|[\r\n]" );
+  public StrBld clear()
+  {
+    sB.setLength( 0 );
+    sQ.clear();
+    return this;
+  }
 
-	public StrBld a( final String s )
-	{
-		final Matcher m = PNL.matcher( s );
+//  ================================================================================
 
-		boolean result = m.find();
+  private Pattern PNL = Pattern.compile( "\r\n|[\r\n]" );
 
-		if ( !result )
-		{
-			sB.append( s );
-			return this;
-		}
+  public StrBld a( final String s )
+  {
+    final Matcher m = PNL.matcher( s );
 
-		int last = 0;
+    boolean result = m.find();
 
-		do
-		{
-			sQ.add( s.substring( last, m.start() ) );
-			last = m.end();
-			result = m.find();
-		}
-		while ( result );
+    if ( !result )
+    {
+      sB.append( s );
+      return this;
+    }
 
-		sB.append( s.substring( last ) );
+    int last = 0;
 
-		return this;
-	}
+    do
+    {
+      sQ.add( s.substring( last, m.start() ) );
+      last = m.end();
+      result = m.find();
+    }
+    while ( result );
 
-	public StrBld a( final Dumpable dmp )
-	{
-		return a( dmp.toString() );
-	}
-	
-//  --------------------------------------------------------------------------------
+    sB.append( s.substring( last ) );
 
-	public Appendable append( final CharSequence cS )
-	{
-		return a( cS.toString() );
-	}
+    return this;
+  }
 
-	public Appendable append( char c )
-	{
-		return c( c );
-	}
-
-	public Appendable append( CharSequence cS, int start, int end )
-	{
-		return append( cS.subSequence( start, end ) );
-	}
+  public StrBld a( final Dumpable dmp )
+  {
+    return a( dmp.toString() );
+  }
 
 //  --------------------------------------------------------------------------------
 
-	public StrBld ah( final StrBld strBld )
-	{
-		final String jS = strBld.sB.toString();
+  public Appendable append( final CharSequence cS )
+  {
+    return a( cS.toString() );
+  }
 
-		if ( !sQ.isEmpty() )
-		{
-			sQ.addFirst( jS + sQ.removeFirst() );
-		}
-		else sB.insert( 0, jS );
+  public Appendable append( char c )
+  {
+    return c( c );
+  }
 
-		final Iterator<String> sI = strBld.sQ.descendingIterator();
-		while ( sI.hasNext() ) sQ.addFirst( sI.next() );
-
-		return this;
-	}
+  public Appendable append( CharSequence cS, int start, int end )
+  {
+    return append( cS.subSequence( start, end ) );
+  }
 
 //  --------------------------------------------------------------------------------
 
-	public StrBld at( final StrBld strBld )
-	{
-		if ( !strBld.sQ.isEmpty() )
-		{
-			final Iterator<String> sI = strBld.sQ.iterator();
+  public StrBld ah( final StrBld strBld )
+  {
+    final String jS = strBld.sB.toString();
 
-			sB.append( sI.next() );
-			n();
+    if ( !sQ.isEmpty() )
+    {
+      sQ.addFirst( jS + sQ.removeFirst() );
+    }
+    else sB.insert( 0, jS );
 
-			while( sI.hasNext() ) sQ.add( sI.next() );
-		}
+    final Iterator<String> sI = strBld.sQ.descendingIterator();
+    while ( sI.hasNext() ) sQ.addFirst( sI.next() );
 
-		sB.append( strBld.sB.toString() );
+    return this;
+  }
 
-		return this;
-	}
-
-//  ================================================================================
-
-	public StrBld c( final char c )
-	{
-		if ( ( c == '\r' ) || ( c == '\n' ) ) return n();
-
-		sB.append( c );
-		return this;
-	}
-
-	public StrBld c( final char c, final int count )
-	{
-		for ( int i = 0; i < count; i ++ ) c( c );
-		return this;
-	}
-
-//  ================================================================================
-
-	public StrBld s()
-	{
-		return c( ' ' );
-	}
-
-	public StrBld s( final int count )
-	{
-		for ( int i = 0; i < count; i ++ ) s();
-		return this;
-	}
-
-	public StrBld sl( final String s )
-	{
-		return s().a( s );
-	}
-
-	public StrBld sr( final String s )
-	{
-		return a( s ).s();
-	}
-
-	public StrBld sb( final String s )
-	{
-		return s().a( s ).s();
-	}
-
-//  ================================================================================
-
-	public StrBld w()
-	{
-		if ( !config.whitespaces.separate() ) return this;
-		
-		return s();
-	}
-
-	public StrBld w( final int count )
-	{
-		for ( int i = 0; i < count; i ++ ) w();
-
-		return this;
-	}
-
-	public StrBld wl( final String s )
-	{
-		return w().a( s );
-	}
-
-	public StrBld wr( final String s )
-	{
-		return a( s ).w();
-	}
-
-	public StrBld wb( final String s )
-	{
-		return w().a( s ).w();
-	}
-
-//  ================================================================================
-
-	public StrBld n()
-	{
-		sQ.add( sB.toString() );
-		sB.setLength( 0 );
-		return this;
-	}
-
-	public StrBld nl( final String s )
-	{
-		return n().a( s );
-	}
-
-	public StrBld nr( final String s )
-	{
-		return a( s ).n();
-	}
-
-	public StrBld nb( final String s )
-	{
-		return n().a( s ).n();
-	}
-
-//  ================================================================================
-
-	public StrBld a( final int i )
-	{
-		sB.append( i );
-		return this;
-	}
-	
 //  --------------------------------------------------------------------------------
 
-	public StrBld fs( final String s, final int spaces )
-	{
-		return fA( "%" + spaces + "s", s );
-	}
+  public StrBld at( final StrBld strBld )
+  {
+    if ( !strBld.sQ.isEmpty() )
+    {
+      final Iterator<String> sI = strBld.sQ.iterator();
 
-	public StrBld fz( final int i, final int digits )
-	{
-		return fA( "%0" + digits + "d", i );
-	}
+      sB.append( sI.next() );
+      n();
 
-	public StrBld fx( final int i, final int digits )
-	{
-		return fA( "%0" + digits + "X", i );
-	}
+      while( sI.hasNext() ) sQ.add( sI.next() );
+    }
 
-	public StrBld ff( final float f, final int decimals )
-	{
-		return fA( "%." + decimals + "f", f );
-	}
+    sB.append( strBld.sB.toString() );
 
-	public StrBld fA( final String format, final Object... oA )
-	{
-		new Formatter( this ).format( format, oA ).flush();
-		return this;
-	}
+    return this;
+  }
 
 //  ================================================================================
 
-	public StrBld trim()
-	{
-		final StrBld nB = new StrBld( config );
+  public StrBld c( final char c )
+  {
+    if ( ( c == '\r' ) || ( c == '\n' ) ) return n();
 
-		for ( final String cS : sQ )
-		{
-			final String trim = cS.trim();
-			if ( !trim.isEmpty() ) nB.nr( trim );
-		}
+    sB.append( c );
+    return this;
+  }
 
-		final String last = sB.toString().trim();
-		if ( !last.isEmpty() ) nB.a( last );
-
-		return nB;
-	}
-
-	public List<String> getList()
-	{
-		final List<String> sL = new ArrayList<String>( sQ.size() + 1 );
-		sL.addAll( sQ );
-		sL.add( sB.toString() );
-		return sL;
-	}
-
-	public String[] getArray()
-	{
-		final String[] sA = new String[ sQ.size() + 1 ];
-		sQ.toArray( sA );
-		sA[ sA.length - 1 ] = sB.toString();
-		return sA;
-	}
-
-	public Iterator<String> iterator()
-	{
-		return getList().iterator();
-	}
+  public StrBld c( final char c, final int count )
+  {
+    for ( int i = 0; i < count; i ++ ) c( c );
+    return this;
+  }
 
 //  ================================================================================
 
-	public String toString()
-	{
-		final StringBuilder sB = new StringBuilder();
+  public StrBld s()
+  {
+    return c( ' ' );
+  }
 
-		for ( final String s : sQ )
-		{
-			sB.append( s );
-			sB.append( config.newLine.getNewLine() );
-		}
+  public StrBld s( final int count )
+  {
+    for ( int i = 0; i < count; i ++ ) s();
+    return this;
+  }
 
-		return sB.append( this.sB ).toString();
-	}
+  public StrBld sl( final String s )
+  {
+    return s().a( s );
+  }
+
+  public StrBld sr( final String s )
+  {
+    return a( s ).s();
+  }
+
+  public StrBld sb( final String s )
+  {
+    return s().a( s ).s();
+  }
+
+//  ================================================================================
+
+  public StrBld w()
+  {
+    if ( !config.whitespaces.separate() ) return this;
+
+    return s();
+  }
+
+  public StrBld w( final int count )
+  {
+    for ( int i = 0; i < count; i ++ ) w();
+
+    return this;
+  }
+
+  public StrBld wl( final String s )
+  {
+    return w().a( s );
+  }
+
+  public StrBld wr( final String s )
+  {
+    return a( s ).w();
+  }
+
+  public StrBld wb( final String s )
+  {
+    return w().a( s ).w();
+  }
+
+//  ================================================================================
+
+  public StrBld n()
+  {
+    sQ.add( sB.toString() );
+    sB.setLength( 0 );
+    return this;
+  }
+
+  public StrBld nl( final String s )
+  {
+    return n().a( s );
+  }
+
+  public StrBld nr( final String s )
+  {
+    return a( s ).n();
+  }
+
+  public StrBld nb( final String s )
+  {
+    return n().a( s ).n();
+  }
+
+//  ================================================================================
+
+  public StrBld a( final int i )
+  {
+    sB.append( i );
+    return this;
+  }
+
+//  --------------------------------------------------------------------------------
+
+  public StrBld fs( final String s, final int spaces )
+  {
+    return fA( "%" + spaces + "s", s );
+  }
+
+  public StrBld fz( final int i, final int digits )
+  {
+    return fA( "%0" + digits + "d", i );
+  }
+
+  public StrBld fx( final int i, final int digits )
+  {
+    return fA( "%0" + digits + "X", i );
+  }
+
+  public StrBld ff( final float f, final int decimals )
+  {
+    return fA( "%." + decimals + "f", f );
+  }
+
+  public StrBld fA( final String format, final Object... oA )
+  {
+    new Formatter( this ).format( format, oA ).flush();
+    return this;
+  }
+
+//  ================================================================================
+
+  public StrBld trim()
+  {
+    final StrBld nB = new StrBld( config );
+
+    for ( final String cS : sQ )
+    {
+      final String trim = cS.trim();
+      if ( !trim.isEmpty() ) nB.nr( trim );
+    }
+
+    final String last = sB.toString().trim();
+    if ( !last.isEmpty() ) nB.a( last );
+
+    return nB;
+  }
+
+  public List<String> getList()
+  {
+    final List<String> sL = new ArrayList<String>( sQ.size() + 1 );
+    sL.addAll( sQ );
+    sL.add( sB.toString() );
+    return sL;
+  }
+
+  public String[] getArray()
+  {
+    final String[] sA = new String[ sQ.size() + 1 ];
+    sQ.toArray( sA );
+    sA[ sA.length - 1 ] = sB.toString();
+    return sA;
+  }
+
+  public Iterator<String> iterator()
+  {
+    return getList().iterator();
+  }
+
+//  ================================================================================
+
+  public String toString()
+  {
+    final StringBuilder sB = new StringBuilder();
+
+    for ( final String s : sQ )
+    {
+      sB.append( s );
+      sB.append( config.newLine.getNewLine() );
+    }
+
+    return sB.append( this.sB ).toString();
+  }
 
 //  ################################################################################
 
-	private static final long serialVersionUID = 0x9568286008441B1DL;
+  private static final long serialVersionUID = 0x9568286008441B1DL;
 }

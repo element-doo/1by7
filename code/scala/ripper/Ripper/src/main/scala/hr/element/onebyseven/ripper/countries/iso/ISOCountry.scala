@@ -1,5 +1,6 @@
 package hr.element.onebyseven
-package countryripper
+package ripper
+package countries
 package iso
 
 import common._

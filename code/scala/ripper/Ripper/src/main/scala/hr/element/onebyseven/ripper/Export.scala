@@ -1,6 +1,5 @@
 package hr.element.onebyseven
-package countryripper
-package export
+package ripper
 
 import hr.ngs.templater.Configuration
 

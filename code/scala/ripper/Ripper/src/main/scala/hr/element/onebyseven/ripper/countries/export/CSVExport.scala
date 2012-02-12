@@ -1,5 +1,6 @@
 package hr.element.onebyseven
-package countryripper
+package ripper
+package countries
 package export
 
 import wiki.WikiCountry
@@ -15,8 +16,14 @@ object CSVExport extends Export {
     val csvTemplate =
       CSVExport.getClass.getResourceAsStream("countries.csv")
 
+    val outputFile =
+      new File(
+        Ripper.root,
+        "Countries/src/test/resources/hr/element/onebyseven/common/test/countries.csv"
+      )
+
     val tD = getDF().open(csvTemplate, "utf8",
-      new FileOutputStream("R:/a.csv"))
+      new FileOutputStream(outputFile))
     tD.process(countries)
     tD.flush()
   }

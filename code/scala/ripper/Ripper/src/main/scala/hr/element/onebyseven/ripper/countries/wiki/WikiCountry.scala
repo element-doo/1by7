@@ -1,8 +1,9 @@
 package hr.element.onebyseven
-package countryripper
+package ripper
+package countries
 package wiki
 
-import hr.element.onebyseven.common._
+import common._
 
 class WikiCountry(
     name: String,
