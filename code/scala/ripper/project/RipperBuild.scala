@@ -55,6 +55,7 @@ object ProjectDeps {
 
   val depsRipper = libDeps(
     dispatchTagsoup
+  , cssSelectors
   , etbUtil
   , scalaIo
   , templater
@@ -67,7 +68,8 @@ object Dependencies {
   import Implicits._
 
   val dispatchTagsoup = "net.databinder" %% "dispatch-tagsoup" % "0.8.7"
-
+  val cssSelectors = "se.fishtank" %% "css-selectors-scala" % "0.1.0"
+  
   val etbUtil = "hr.element.etb" %% "etb-util" % "0.2.5"
   val scalaIo = "com.github.scala-incubator.io" %% "scala-io-file" % "0.3.0"
 
