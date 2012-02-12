@@ -5,8 +5,7 @@ package export
 
 import wiki.WikiCountry
 
-import scala.actors.Futures.future
-import scala.collection.immutable.TreeSet
+import scala.concurrent.ops.future
 
 import java.io._
 

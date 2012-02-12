@@ -8,8 +8,8 @@ object EntryPoint {
   def main(args: Array[String]) {
     val rippers =
       Seq(
-        countries.CountryRipper
-      , mimetypes.MimeTypeRipper
+//        countries.CountryRipper
+        mimetypes.MimeTypeRipper
       )
 
     val jobs = rippers.map{r =>
