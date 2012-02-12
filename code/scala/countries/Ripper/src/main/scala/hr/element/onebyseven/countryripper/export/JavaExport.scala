@@ -21,7 +21,7 @@ object JavaExport extends Export {
     val maxName = countries.map(_.name.length).max
 
     val tt = tD.templater()
-    tt.resize("name", countries.size)
+    tt.resize(Array("name"), countries.size)
     countries.foreach{country =>
       tD.process(country)
       tt.replace("numeric3.padding", " " * (3 - country.n3.code.toShort.toString.length))

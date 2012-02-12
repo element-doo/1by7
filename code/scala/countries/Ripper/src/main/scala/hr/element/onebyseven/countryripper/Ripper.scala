@@ -4,4 +4,3 @@ package countryripper
 trait Ripper[T <: CountryStub] {
   def ripCountries(): Seq[T]
 }
-
