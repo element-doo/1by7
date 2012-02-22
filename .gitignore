@@ -7,3 +7,4 @@
 target
 
 sbt-launch-*.jar
+*~

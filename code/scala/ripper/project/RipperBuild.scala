@@ -44,13 +44,27 @@ object BuildSettings {
       name         := "Ripper"
     , version      := "0.0.1"
     )
+
+ /* val bsTF = scalaSettings ++
+    Seq(
+      name         := "TF"
+    , version      := "0.0.1"
+    )*/
 }
+
+
 
 object ProjectDeps {
   import Dependencies._
   import Implicits._
+//  import Publications._
 
-  val depsCountries = libDeps()
+  val depsCountries = libDeps(
+    templater	
+  , liftJson
+  , liftCommon
+  , liftUtil)
+
   val depsMimeTypes = libDeps()
 
   val depsRipper = libDeps(
@@ -59,14 +73,25 @@ object ProjectDeps {
   , cssSelectors
   , etbUtil
   , scalaIo
-  , templater
-  )
+  , templater)
+
+ // val depsTextFormater = libDeps(countriess) 
 }
 
 //  ---------------------------------------------------------------------------
 
+/*object Publications {
+  val countriess = "hr.element.onebyseven.common" %% countries % "2011-11-08"
+}*/
+
 object Dependencies {
   import Implicits._
+
+  val liftVersion = "2.4"
+  val liftJson   = "net.liftweb" %% "lift-json"   % liftVersion
+  val liftCommon = "net.liftweb" %% "lift-common" % liftVersion
+  val liftUtil   = "net.liftweb" %% "lift-util"   % liftVersion
+//  val liftWebkit = "net.liftweb" %% "lift-webkit" % liftVersion
 
   val dispatchVersion = "0.8.7"
   val dispatchTagsoup = "net.databinder" %% "dispatch-tagsoup" % dispatchVersion
@@ -103,4 +128,10 @@ object RipperBuild extends Build {
   , file("Ripper")
   , settings = bsRipper :+ depsRipper
   )
+
+ /* lazy val textFormater = Project(
+    "TextFormater"
+  , file("TextFormater")
+  , settings = bsTF :+ depsTextFormater
+  ) */
 }
