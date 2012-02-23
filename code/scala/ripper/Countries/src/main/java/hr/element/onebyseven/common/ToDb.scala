@@ -35,7 +35,7 @@ class ToDb(cc: ConnectionConfiguration) {
 
   def addCountires(){
     val insertStatement = con.prepareStatement(addCountryStatement)
-    Country.values().foreach{ x =>
+    Country.values.foreach{ x =>
       insertStatement.setString(0, x.alpha2)
       insertStatement.setString(1, x.alpha3)
       insertStatement.setInt(   2, Integer.parseInt(x.numeric3))

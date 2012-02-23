@@ -27,7 +27,7 @@ class CountryXMLExport {
     </countries>
 
   def bindCountries = (n: NodeSeq) => {
-    val countries = Country.values()
+    val countries = Country.values
     countries.toSeq.flatMap{ c => (
       ( "* [alpha2]" #> c.alpha2
           & "* [alpha3]" #> c.alpha3

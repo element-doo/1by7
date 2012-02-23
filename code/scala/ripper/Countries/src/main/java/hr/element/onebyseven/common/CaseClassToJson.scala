@@ -10,7 +10,7 @@ import net.liftweb.json.JsonDSL._
 class CaseClassToJson {
 
   val arr=  (
-      Country.values().map{
+      Country.values.map{
               x =>
                 (("alpha2"      -> x.alpha2) ~
                     ("alpha3"   -> x.alpha3) ~

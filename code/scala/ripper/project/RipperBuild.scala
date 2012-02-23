@@ -60,7 +60,8 @@ object ProjectDeps {
 //  import Publications._
 
   val depsCountries = libDeps(
-    templater	
+    itext
+  , templater	
   , liftJson
   , liftCommon
   , liftUtil)
@@ -103,6 +104,8 @@ object Dependencies {
   val scalaIo = "com.github.scala-incubator.io" %% "scala-io-file" % "0.3.0"
 
   val templater = "hr.ngs.templater" %% "templater" % "1.5.2"
+
+  val itext = "com.lowagie" % "itext" % "2.1.5"
 }
 
 //  ---------------------------------------------------------------------------

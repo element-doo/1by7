@@ -4,7 +4,7 @@ import java.io.OutputStreamWriter
 import java.io.PrintWriter
 
 class TextFormater(separation: Array[Int], w: Writer) {
-  val count = Country.values()
+  val count = Country.values
   count.foreach{
       x =>
         val form = ( i: Int) => "%" + separation(i) + "s"
