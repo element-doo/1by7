@@ -5,7 +5,7 @@ import net.liftweb.util._
 import Helpers._
 import BindPlus._
 
-class toHtml {
+class ToHtml {
 
   val tplAttr =
     <select>

@@ -8,6 +8,7 @@ import java.io.Writer
 import java.io.PrintWriter
 import java.io.FileWriter
 
+//todo add Traversable[values]
 case class EnumToCaseObject(s: String) {
   val out = new PrintWriter(new FileWriter(s));
   val w: Writer = new OutputStreamWriter(new FileOutputStream(s))

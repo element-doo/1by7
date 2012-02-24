@@ -9,6 +9,6 @@ case class ToWord(fileName: String, os: OutputStream) {
       new FileInputStream(fileName),
       "docx",
       os)
-      a.process(classOf[Country])
+      a.process(Country)
       a.flush()
 }

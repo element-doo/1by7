@@ -8,6 +8,7 @@ import BindPlus._
 
 class CountryXMLExport {
 
+  val countries = Country.values
   val tplAttr =
     <countries>
       <country />
@@ -26,30 +27,36 @@ class CountryXMLExport {
       </country>
     </countries>
 
-  def bindCountries = (n: NodeSeq) => {
+  def bindCountryValuesToAtributes = (n: NodeSeq) => {
     val countries = Country.values
     countries.toSeq.flatMap{ c => (
       ( "* [alpha2]" #> c.alpha2
           & "* [alpha3]" #> c.alpha3
           & "* [numeric3]" #> c.numeric3
-          & "* [wikiName]" #> c.wikiName)
-      //n.bind("c",
-
-      //( "alpha2" #> c.alpha2 )
-      /*& "alpha3=HRV" #> c.alpha3
-      & "numeric3 *" #> c.numeric3
-      & "name *" #> c.wikiName*/
-      )(n)
+          & "* [wikiName]" #> c.wikiName))(n)
     }
   }
 
-  def toXML = {
-    ("country" #> bindCountries)(tplAttr)
+
+  def bindCountryValuesToTags = (n: NodeSeq) =>
+    countries.toSeq.flatMap{ c =>
+      ( "alpha2 *" #> c.alpha2
+      & "alpha3 *" #> c.alpha3
+      & "numeric3 *" #> c.numeric3
+      & "name *" #> c.wikiName)(n)
+    }
+
+  def toXMLWithTags = {
+    ("country" #> bindCountryValuesToTags)(tplTag)
+  }
+
+  def toXMLWithAttributes = {
+    ("country" #> bindCountryValuesToAtributes)(tplAttr)
   }
 
   val pp = new PrettyPrinter(80, 2)
 
-  val a = toXML
+  val a = toXMLWithAttributes
   println(pp.formatNodes(a))
 
 }

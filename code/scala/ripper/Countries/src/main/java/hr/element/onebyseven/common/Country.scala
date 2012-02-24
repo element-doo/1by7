@@ -1,5 +1,5 @@
 package hr.element.onebyseven.common
-object Country{
+object Country extends Traversable[Country]{
     val values = Seq(
     AF, AX, AL, DZ, AS, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, BS,
     GR, GL, GD, GP, GU, GT, GG, GN, GW, GY, HT, HM, VA, HN, HK, HU, IS,
@@ -20,13 +20,16 @@ object Country{
     def apply(c: String) = parse(c).getOrElse(sys.error("Country %s does not exist!" format c))
     def unapply(c: String) =
       parse(c)
+    def foreach[U](f: Country => U) = values.foreach(x => f(x))
   }
+
+import Country._
 
 abstract sealed class Country (
     val alpha3: String,
     val numeric3:  String,
     val wikiName: String){
-  val alpha2 = getClass.getSimpleName
+  val alpha2 = getClass.getSimpleName.take(2)
   val isoName = wikiName.toUpperCase
 }
 

@@ -1,6 +1,5 @@
 package hr.element.onebyseven.common
 import hr.ngs.templater.Configuration
-import java.io.InputStream
 import java.io.OutputStream
 import java.io.FileInputStream
 
@@ -10,7 +9,8 @@ class ToSpreadSheet(os: OutputStream, fileName: String) {
       new FileInputStream(fileName),
       "xlsx",
       os)
-      a.process(classOf[Country])
+      a.process(Country)
       a.flush()
+
 
 }
