@@ -5,18 +5,21 @@ import java.io.FileOutputStream
 import com.lowagie.text.pdf.PdfTable
 import com.lowagie.text.pdf.PdfPTable
 import com.lowagie.text.pdf.PdfPCell
+import java.io.ByteArrayOutputStream
 
-case class WarpediText(fileName: String) {
+object WarpediText{//}(fileName: String) {
 
-  def makePdf {
+  def makePdf() = {
+    val ba = new ByteArrayOutputStream
     val doc = new Document(PageSize.A4)
-    PdfWriter.getInstance(doc, new FileOutputStream(fileName))
+    PdfWriter.getInstance(doc, ba)//new FileOutputStream(fileName))
     doc.open()
     doc.add(makeTable)
     doc.close()
+    ba.toByteArray()
   }
 
-  def makeTable() = {
+  protected def makeTable() = {
     implicit def stringToPdfPCell(s: String) =  new PdfPCell(new Phrase(s))
     val table = new PdfPTable(4)
     Country.values.foreach{x =>
@@ -26,9 +29,6 @@ case class WarpediText(fileName: String) {
       table.addCell(x.wikiName)}
     table
   }
-
-
-
 }
 
 

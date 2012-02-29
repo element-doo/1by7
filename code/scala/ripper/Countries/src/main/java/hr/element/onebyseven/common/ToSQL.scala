@@ -1,32 +1,34 @@
 package hr.element.onebyseven.common
+
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 import java.io.Writer
 
-sealed abstract class bases
-case object MysqlOption extends bases
-case object PgsqlOption extends bases
-case object MSsqlOption
+sealed abstract class DataBase
+case object MysqlOption extends DataBase
+case object PgsqlOption extends DataBase
+case object MSsqlOption extends DataBase
 
 object ToSQL {
-  def apply(w: Writer, opt: bases) {
+  def apply(w: Writer, opt: DataBase) {
     opt match {
       case PgsqlOption => new PgSqlWrite(w)
       case MysqlOption => new MySqlWrite(w)
+      case MSsqlOption => new MSSqlWriter(w)
     }
   }
 }
 
 abstract class SqlCountriesInsertWriter(w: Writer) {
   val header: String
-  val closingStatement: String
+  val closingStatement: String =""
   def spaces(i: Int): String =
     if (i == 0) " "
     else spaces(i - 1) + " "
   val cValues = Country.values
   val maxWikiSpacing = cValues.maxBy(_.wikiName.length).wikiName.length
   val insertHeader =
-    "INSERT INTO iso.countries(alpha2_code,alpha3_code,numeric3_code,iso_name) VALUES\n"
+    "INSERT INTO iso.countries( alpha2_code, alpha3_code, numeric3_code, iso_name) VALUES\n"
   val createInsert = (c: Country) =>
     "('%s', '%s', '%s', '%s' %s)".format(
       c.alpha2,
@@ -81,26 +83,23 @@ CREATE TABLE iso.countries
 """
 
 
-  val closingStatement = ""
-
-  w.write(header)
-  w.write(insertHeader)
-  w.write(createInsert(cValues.head))
-  for (c <- cValues.tail) {
-    w.write(",\n")
-    w.write(createInsert(c))
-  }
-  w.write(";\n\n")
-
-  //w.write(clusterStatement)
-  w.close()
+//  val closingStatement = ""
+//
+//  w.write(header)
+//  w.write(insertHeader)
+//  w.write(createInsert(cValues.head))
+//  for (c <- cValues.tail) {
+//    w.write(",\n")
+//    w.write(createInsert(c))
+//  }
+//  w.write(";\n\n")
+//
+//  //w.write(clusterStatement)
+//  w.close()
 
 }
 
 class PgSqlWrite(w: Writer) extends SqlCountriesInsertWriter(w) {
-
-  /*val osf = new FileOutputStream(fileName)
-    val w = new OutputStreamWriter(osf)*/
 
   val header = """DROP SCHEMA IF EXISTS iso CASCADE;
 
@@ -133,11 +132,11 @@ ALTER TABLE iso.countries CLUSTER ON uq_iso_countries_iso_name;
 
 """
 
-  val closingStatement = "CLUSTER iso.countries;"
+  override val closingStatement = "CLUSTER iso.countries;"
 
 }
 
-class MicrosoftSqlWriter(w: Writer) extends SqlCountriesInsertWriter(w) {
+class MSSqlWriter(w: Writer) extends SqlCountriesInsertWriter(w) {
   val header = """
 SCHEMA AUTHORIZATION iso;
 
@@ -193,8 +192,4 @@ go
 
 
 """
-
-  val closingStatement = "CLUSTER iso.countries;"
-
-
 }

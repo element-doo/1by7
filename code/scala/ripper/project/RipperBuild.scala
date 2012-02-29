@@ -45,11 +45,12 @@ object BuildSettings {
     , version      := "0.0.1"
     )
 
- /* val bsTF = scalaSettings ++
+  val bsDumper = scalaSettings ++
     Seq(
-      name         := "TF"
+      name         := "Dumper"
     , version      := "0.0.1"
-    )*/
+    )
+
 }
 
 
@@ -69,14 +70,18 @@ object ProjectDeps {
   val depsMimeTypes = libDeps()
 
   val depsRipper = libDeps(
-    dispatchTagsoup
+    doitCsv
+  , dispatchTagsoup
   , dispatchLiftJson
   , cssSelectors
   , etbUtil
   , scalaIo
   , templater)
 
- // val depsTextFormater = libDeps(countriess) 
+  val depsDumper = libDeps(
+    doitCsv
+  , templater
+  , itext) 
 }
 
 //  ---------------------------------------------------------------------------
@@ -105,6 +110,8 @@ object Dependencies {
 
   val templater = "hr.ngs.templater" %% "templater" % "1.5.2"
 
+  val doitCsv = "hr.element.doit" %% "doit-csv" % "0.1.4"
+
   val itext = "com.lowagie" % "itext" % "2.1.5"
 }
 
@@ -132,9 +139,9 @@ object RipperBuild extends Build {
   , settings = bsRipper :+ depsRipper
   )
 
- /* lazy val textFormater = Project(
-    "TextFormater"
-  , file("TextFormater")
-  , settings = bsTF :+ depsTextFormater
-  ) */
+  lazy val dumper = Project(
+    "Dumper"
+  , file("Dumper")
+  , settings = bsDumper :+ depsDumper
+  ) 
 }

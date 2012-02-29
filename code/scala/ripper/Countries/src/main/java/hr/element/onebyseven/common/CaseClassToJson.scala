@@ -1,28 +1,30 @@
 package hr.element.onebyseven.common
+
 import net.liftweb.json._
 import net.liftweb.json.JsonDSL._
-//
-//object CaseClassToJson {
-//
-//  def apply() = {}
-//}
+import java.io.OutputStreamWriter
+import java.io.FileOutputStream
+import java.io.ByteArrayOutputStream
+import java.io.OutputStream
 
-class CaseClassToJson {
+class CaseClassToJson{//}(fileName: String) {
 
-  val arr=  (
-      Country.values.map{
-              x =>
-                (("alpha2"      -> x.alpha2) ~
-                    ("alpha3"   -> x.alpha3) ~
-                    ("numeric3" -> x.numeric3) ~
-                    ("WikiName" -> x.wikiName))
-            }.toList
-            )
+  val arr = (
+    Country.values.map {
+      x =>
+        (("alpha2" -> x.alpha2) ~
+          ("alpha3" -> x.alpha3) ~
+          ("numeric3" -> x.numeric3) ~
+          ("WikiName" -> x.wikiName))
+    }.toList)
 
   val jsstr = (("Countries" -> arr))
-
-  val str = compact(render(jsstr)).split('}')
-
-  println(compact(render(jsstr)))
-
+  override val toString = Printer.pretty(render(jsstr))
+  val str = compact(render(jsstr))
+  val toByteArray = toString.getBytes()
 }
+
+//  val w = new OutputStreamWriter(new FileOutputStream(fileName))
+//
+//  w.write(str)
+//  w.close()

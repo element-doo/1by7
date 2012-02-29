@@ -6,21 +6,20 @@ import java.lang.Class
 object trara {
 
   def main(args :Array[String]) {
-    //WarpediText("/home/marin/projects/Countries.pdf").makePdf
-    //a.makePdf()
-//
-//
-//    val cla = ObjectValueGetter[Country]
-//    cla.className.foreach((println(_)))
+
+    val b =  WarpediText.makePdf()
+    b.foreach(println)
+    println(b.length+"|" + new String(b,"UTF8"))
 
 
 
-//   ObjectValueGetter[Country].getAll(AF).foreach( println)// fieldNames.foreach(println)
-//
-    //LatexTable("/home/marin/projects/1by7/countires.tex")
-//    val someFile = "/home/marin/projects/1by7/code/scala/ripper/Countries/src/main/java/hr/element/onebyseven/common/County.scala"
-//    EnumToCaseObject(someFile)
-//  val outputfile = new FileOutputStream("/home/marin/projects/Bot2.xlsx")
+//    val someFile = "/home/marin/projects/County.json"
+//    println(new CaseClassToJson(someFile).toString)
+    //EnumToCaseObject(someFile)
+ }
+}
+
+// val outputfile = new FileOutputStream("/home/marin/projects/Bot2.xlsx")
 //  val fileName ="/home/marin/projects/someTeml.xlsx"
 //  new ToSpreadSheet(outputfile, fileName)
 //  outputfile.close()
@@ -28,11 +27,19 @@ object trara {
 //    ToWord("/home/marin/projects/wordTemplate.docx", fileOut)
 //    fileOut.close()
   //Country.values.foreach(x => println(x.alpha2+" "+ x.alpha3+ " " +x.numeric3+" " + x.wikiName))
-  }
-}
+
+    //WarpediText("/home/marin/projects/Countries.pdf").makePdf
+    //a.makePdf()
+//
+//
+//    val cla = ObjectValueGetter[Country]
+//    cla.className.foreach((println(_)))
+//    (new CaseClassToJson).str.foreach(println)
 
 
-
+//   ObjectValueGetter[Country].getAll(AF).foreach( println)// fieldNames.foreach(println)
+//
+    //LatexTable("/home/marin/projects/1by7/countires.tex")
 
 //location  /home/marin/projects/1by7/code/scala/ripper/Countries/src/main/java/hr/element/onebyseven/common/Country.java
   //new toHtml()

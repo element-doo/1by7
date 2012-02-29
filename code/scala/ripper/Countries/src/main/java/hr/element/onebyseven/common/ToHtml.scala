@@ -1,11 +1,12 @@
 package hr.element.onebyseven.common
 import scala.xml._
-
 import net.liftweb.util._
 import Helpers._
-import BindPlus._
 
-class ToHtml {
+import java.io.FileOutputStream
+import java.io.OutputStreamWriter
+
+class ToHtml(fileName: String) extends PrettyFileWriter {
 
   val tplAttr =
     <select>
@@ -13,19 +14,12 @@ class ToHtml {
     </select>
 
   def bindCountry(c: Country) =
-  ( "option *" #> c.wikiName
-  & "* [value]" #> c.alpha2
-  )
+    ( "option *" #> c.wikiName
+    & "* [value]" #> c.alpha2)
 
   def bindCountries(countries: Array[Country]) = (n: NodeSeq) =>
     countries.flatMap(bindCountry(_)(n)): Array[NodeSeq]
 
-  def toXML =
+  val xmlVal =
     ("option" #> bindCountries(Country.toArray))(tplAttr)
-
-  val pp = new PrettyPrinter(80, 2)
-
-  val a = toXML
-  println( pp.formatNodes(a))
-
 }
