@@ -62,7 +62,7 @@ object ProjectDeps {
 
   val depsCountries = libDeps(
     itext
-  , templater	
+  , templater
   , liftJson
   , liftCommon
   , liftUtil)
@@ -81,7 +81,7 @@ object ProjectDeps {
   val depsDumper = libDeps(
     doitCsv
   , templater
-  , itext) 
+  , itext)
 }
 
 //  ---------------------------------------------------------------------------
@@ -143,5 +143,5 @@ object RipperBuild extends Build {
     "Dumper"
   , file("Dumper")
   , settings = bsDumper :+ depsDumper
-  ) 
+  )
 }

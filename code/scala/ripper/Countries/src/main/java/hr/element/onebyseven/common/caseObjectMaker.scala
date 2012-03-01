@@ -2,7 +2,7 @@ package hr.element.onebyseven.common
 
 class O(val i: Int, val o: Int)
 
-object caseObjectMaker {//extends App
+object CaseObjectMaker {//extends App
   val i = new O(3, 7)
   classOf[O].getDeclaredFields().foreach{
       x =>

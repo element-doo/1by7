@@ -13,9 +13,9 @@ class toHtml {
     </select>
 
   def bindCountry(c: Country) =
-  ( "option *" #> c.wikiName
-  & "* [value]" #> c.alpha2
-  )
+    ( "option *" #> c.wikiName
+    & "* [value]" #> c.alpha2
+    )
 
   def bindCountries(countries: Array[Country]) = (n: NodeSeq) =>
     countries.flatMap(bindCountry(_)(n)): Array[NodeSeq]
@@ -27,5 +27,4 @@ class toHtml {
 
   val a = toXML
   println( pp.formatNodes(a))
-
 }
