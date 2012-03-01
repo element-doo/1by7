@@ -4,10 +4,13 @@ import java.io.FileOutputStream
 import hr.element.doit.csv.CSVConfig
 
 object Entry extends App {
-  val someFile = "centri.csv"
-  val csvconfig = CSVConfig.default
-  val w = new FileOutputStream(someFile)
-  val writer = csvconfig.getWriter(w)
-  RippMspm(writer)
-  w.close()
+
+  if (RippMspm.pagenavigatorNotDetector) println("true")
+  else println("false")
+  //  val someFile = "centri.csv"
+//  val csvconfig = CSVConfig.default
+//  val w = new FileOutputStream(someFile)
+//  val writer = csvconfig.getWriter(w)
+//  RippMspm(writer)
+//  w.close()
 }

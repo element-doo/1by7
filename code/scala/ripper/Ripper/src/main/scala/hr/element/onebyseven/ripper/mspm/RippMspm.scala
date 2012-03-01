@@ -12,6 +12,7 @@ import hr.element.doit.csv.CSVWriter
 
 object RippMspm {
   val tipovi = (
+//      <option value="806">Ustanove socijalne skrbi</option>
     <option value="300">Centri socijalne skrbi</option>
     <option value="469">Domovi za starije i nemoćne osobe (domovi čiji je osnivač županija)</option>
     <option value="470">Domovi za starije i nemoćne osobe (domovi drugih osnivača)</option>
@@ -23,7 +24,7 @@ object RippMspm {
     <option value="478" >Domovi za djecu bez odgovarajuće roditeljske skrbi (domovi drugih osnivača)</option>
     <option value="479">Domovi za djecu s poremećajima u ponašanju (domovi čiji je osnivač Republika Hrvatska)</option>
       )
-//  <option value="806">Ustanove socijalne skrbi</option>
+//
   val zupanije = (
     <option value="0">Bjelovarsko-bilogorska županija</option>
     <option value="1">Brodsko-posavska županija</option>
@@ -46,7 +47,7 @@ object RippMspm {
     <option value="18">Vukovarsko-srijemska županija</option>
     <option value="19">Zadarska županija</option>
     <option value="20">Zagrebačka županija</option>)
-
+implicit def getValue(n: Node): String = { n.attribute("value").get.mkString } // TODO extract value form node
   val WikiURI =
     :/("en.wikipedia.org") / "wiki" / "ISO_3166-1"
   val URI = (typ: String, county: String) => {
@@ -56,7 +57,7 @@ object RippMspm {
   }
 
   def apply(w: CSVWriter) = {
-    implicit def getValue(n: Node): String = { n.attribute("value").get.mkString } // TODO extract value form node
+
 
     var h = 0
 
@@ -79,6 +80,18 @@ object RippMspm {
           }
         })
 
+      })
+  }
+  def pagenavigatorNotDetector = {
+      tipovi.forall(
+          tip =>
+      zupanije.forall{
+        zup =>
+        Http(URI(tip, zup) </> { ns =>
+            (ns \\ "div").forall(
+                div =>
+              div.attribute("class").forall( _.text != "pagenavigator"))
+        })
       })
   }
 }
