@@ -34,4 +34,3 @@ class TextFormater(separation: Array[Int]){//}, w: Writer) {
   val toByteArray = ba.toByteArray()
   w.close()
 }
-

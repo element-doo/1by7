@@ -254,5 +254,3 @@ case object EH extends Country("ESH", 732, "Western Sahara                      
 case object YE extends Country("YEM", 887, "Yemen                                        ")
 case object ZM extends Country("ZMB", 894, "Zambia                                       ")
 case object ZW extends Country("ZWE", 716, "Zimbabwe                                     ")
-
-

@@ -36,5 +36,3 @@ case class LatexTable extends options{
   val beginStatement  = "\\begin{tabular}{ c | c | c | c | }\n"
   val endStatement    = "\\end{tabular}\n"
 }
-
-

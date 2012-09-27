@@ -30,5 +30,3 @@ object WarpediText{//}(fileName: String) {
     table
   }
 }
-
-

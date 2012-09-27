@@ -1,9 +1,9 @@
 import sbt._
 import Keys._
 
-object BuildSettings {
-  import Repositories._
+import Repositories._
 
+object BuildSettings {
   val defaultSettings = Default.settings ++ Seq(
       organization := "hr.element.onebyseven"
     )
@@ -49,6 +49,9 @@ object BuildSettings {
       name         := "CroZip"
     , organization := "hr.element.onebyseven.croatia"
     , version      := "2012-09-26"
+    , publishTo <<= (version) { version => Some(
+        if (version.endsWith("SNAPSHOT")) ElementSnapshots else ElementReleases
+      )}
     )
 }
 
@@ -78,7 +81,7 @@ object ProjectDeps {
     doitCsv
   , templater
   , itext)
-  
+
   val depsCroZip = libDeps(
     etbUtil
   , scalaIo)
@@ -143,7 +146,7 @@ object RipperBuild extends Build {
   , file("Dumper")
   , settings = bsDumper :+ depsDumper
   )
-  
+
   lazy val croZip = Project(
     "CroZip"
   , file("CroZip")
