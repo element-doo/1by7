@@ -46,8 +46,8 @@ object BuildSettings {
     )
 
   val bsCroZip = scalaSettings ++ Seq(
-      name         := "PostApi"
-    , organization := "hr.element.onebyseven.common"
+      name         := "CroZip"
+    , organization := "hr.element.onebyseven.croatia"
     , version      := "2012-09-26"
     )
 }
@@ -55,7 +55,6 @@ object BuildSettings {
 object ProjectDeps {
   import Dependencies._
   import Implicits._
-//  import Publications._
 
   val depsCountries = libDeps(
     itext
@@ -87,11 +86,11 @@ object ProjectDeps {
 
 //  ---------------------------------------------------------------------------
 
-/*object Publications {
-  val countriess = "hr.element.onebyseven.common" %% countries % "2011-11-08"
-}*/
+trait Publications {
+  val countries = "hr.element.onebyseven.common" % "countries" % "2011-11-08"
+}
 
-object Dependencies {
+object Dependencies extends Publications {
   import Implicits._
 
   val liftVersion = "2.5-M1"
@@ -105,14 +104,14 @@ object Dependencies {
 
   val cssSelectors = "se.fishtank" %% "css-selectors-scala" % "0.1.0"
 
-  val etbUtil     = "hr.element.etb" %% "etb-util" % "0.2.16-P0"
-  val scalaIo     = "com.github.scala-incubator.io" %% "scala-io-file" % "0.4.1"
+  val etbUtil = "hr.element.etb" %% "etb-util" % "0.2.16-P0"
+  val scalaIo = "com.github.scala-incubator.io" % "scala-io-file_2.9.2" % "0.4.1"
 
-  val templater   = "hr.ngs.templater" %% "templater" % "1.7.0"
+  val templater = "hr.ngs.templater" %% "templater" % "1.7.0"
 
-  val doitCsv     = "hr.element.doit" %% "doit-csv" % "0.2.5"
+  val doitCsv   = "hr.element.doit" %% "doit-csv" % "0.1.6-T1"
 
-  val itext       = "com.lowagie" % "itext" % "2.1.5"
+  val itext     = "com.lowagie" % "itext" % "2.1.5"
 }
 
 //  ---------------------------------------------------------------------------

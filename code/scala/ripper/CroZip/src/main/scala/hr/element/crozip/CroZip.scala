@@ -1,30 +1,25 @@
-package hr.element.post.api
+package hr.element.crozip
 
 import scala.xml.XML
 import hr.element.etb.Pimps._
 import scalax.io._
+import scalax.io.Codec.UTF8
 import java.lang.Exception
 
-object PostApi {
+object CroZip {
   val ZipList = "mjestaRH.xml"
 
-  val list = {
-  }
-
   lazy val cities = {
-    val body = Resource.fromClasspath(ZipList).byteArray
-    val list = new String(body, "UTF-8").toElem
-    list \\ "mjesto" map City.apply
+    val body = Resource.fromClasspath(ZipList).string(UTF8).toElem
+    body \\ "mjesto" map City.apply
   }
 
   def findCities(cityName: String) = {
     val name = cityName.toLowerCase
-
-    cities.filter(c => c.nazivPu.toLowerCase == name || c.naselje.toLowerCase == name )
+    cities.filter(c => c.nazivPu.toLowerCase == name || c.naselje.toLowerCase == name)
   }
 
   def getZip(cityName: String) = {
     findCities(cityName).headOption.map(_.brojPu)
   }
-
 }

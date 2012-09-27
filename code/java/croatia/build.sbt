@@ -6,7 +6,7 @@ version      := "0.1.0"
 
 // ### Build settings ###
 
-unmanagedSourceDirectories in Compile <<= (javaSource in Compile)( _ :: Nil)
+unmanagedSourceDirectories in Compile <<= (javaSource in Compile)(_ :: Nil)
 
 unmanagedSourceDirectories in Test := Nil
 

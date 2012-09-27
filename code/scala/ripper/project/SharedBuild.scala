@@ -14,8 +14,8 @@ object Resolvers {
 
   val settings = Seq(
     resolvers := Seq(ElementNexus, ElementPrivateReleases, ElementPrivateSnapshots)
-  , externalResolvers <<= resolvers map { rs =>
-      Resolver.withDefaultResolvers(rs, mavenCentral = false, scalaTools = false)
+  , externalResolvers <<= resolvers map { rS =>
+      Resolver.withDefaultResolvers(rS, mavenCentral = false)
     }
   )
 }
@@ -37,9 +37,9 @@ object Default {
     Defaults.defaultSettings ++
     Resolvers.settings ++
     Publishing.settings ++ Seq(
-      crossScalaVersions := Seq("2.9.1")
-    , scalaVersion <<= (crossScalaVersions) { versions => versions.head }
-    , scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "UTF-8", "-optimise", "-Yrepl-sync")
+      crossScalaVersions := Seq("2.9.2", "2.9.1-1", "2.9.1", "2.9.0-1", "2.9.0")
+    , scalaVersion <<= crossScalaVersions(_.head)
+    , scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "UTF-8", "-optimise")
     , unmanagedSourceDirectories in Test := Nil
     )
 }
