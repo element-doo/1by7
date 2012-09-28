@@ -20,7 +20,6 @@ object CroZip {
   }
 
   def getZip(cityName: String) = {
-    val city = cityName.head.toUpper + cityName.tail.toLowerCase
-    findCities(city).headOption.map(_.brojPu)
+    findCities(cityName).headOption.map(_.brojPu)
   }
 }
