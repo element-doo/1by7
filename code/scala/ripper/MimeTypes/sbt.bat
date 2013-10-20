@@ -1,5 +1,9 @@
 @echo off
+setlocal
 
-for %%? in ("%~dp0.") do set PARENT=%%~n?
+set DEFAULT=
+if %1.==. set DEFAULT=shell
 
-call "%~dp0..\sbt.bat" "project %PARENT%" %*
+for %%? in ("%~dp0.") do set PROJECT=%%~n?
+
+call "%~dp0..\sbt.bat" "project %PROJECT%" %DEFAULT%%*

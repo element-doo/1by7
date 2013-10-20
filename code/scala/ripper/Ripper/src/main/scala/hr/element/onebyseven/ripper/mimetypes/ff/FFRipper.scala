@@ -6,12 +6,7 @@ package ff
 import common._
 import dispatch._
 
-import tagsoup.TagSoupHttp._
-
 import scala.xml._
-
-import se.fishtank.css.selectors._
-import parser.SelectorParser
 
 object FFRipper extends MimeTypeRipper {
   type T = FFMimeType
