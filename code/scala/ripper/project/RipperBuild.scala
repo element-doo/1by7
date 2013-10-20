@@ -56,7 +56,7 @@ object BuildSettings {
   val bsCroZip = scalaSettings ++ Seq(
       name         := "CroZip"
     , organization := "hr.element.onebyseven.croatia"
-    , version      := "2012-09-26"
+    , version      := "2012-09-28"
     , publishTo := Some(
         if (version.value endsWith "SNAPSHOT") ElementSnapshots else ElementReleases
       )
