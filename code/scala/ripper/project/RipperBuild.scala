@@ -9,7 +9,7 @@ object BuildSettings {
     )
 
   val scalaSettings = defaultSettings ++ Seq(
-      scalaVersion := "2.10.3"
+      scalaVersion := "2.10.4"
     , unmanagedSourceDirectories in Compile := (scalaSource in Compile).value :: Nil
     )
 
@@ -56,7 +56,7 @@ object BuildSettings {
   val bsCroZip = scalaSettings ++ Seq(
       name         := "CroZip"
     , organization := "hr.element.onebyseven.croatia"
-    , version      := "2012-09-28"
+    , version      := "2012-09-26"
     , publishTo := Some(
         if (version.value endsWith "SNAPSHOT") ElementSnapshots else ElementReleases
       )

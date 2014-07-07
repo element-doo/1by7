@@ -43,7 +43,7 @@ object Default {
     Publishing.settings ++
     graphSettings ++ 
     eclipseSettings ++ Seq(
-      crossScalaVersions := Seq("2.10.3", "2.9.3", "2.9.2", "2.9.1-1", "2.9.1", "2.9.0-1", "2.9.0")
+      crossScalaVersions := Seq("2.10.4", "2.9.3", "2.9.2", "2.9.1-1", "2.9.1", "2.9.0-1", "2.9.0")
     , scalaVersion := crossScalaVersions.value.head
     , scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "UTF-8", "-optimise")
     , unmanagedSourceDirectories in Test := Nil
